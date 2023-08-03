@@ -1,6 +1,6 @@
 # av_player
 
-A Flutter plugin to handle all platform specific implementations for playing audio and video media files. It is intended to be a 'plugin-n-play' solution. E.g just call a function `playVideo` and that's what it should do.
+A Flutter plugin to handle ios & Android platform specific implementations for playing audio and video media files. It is intended to be a 'plugin-n-play' solution. E.g just call a function `playVideo` and that's what it should do.
 
 ## Android Set-up
 
