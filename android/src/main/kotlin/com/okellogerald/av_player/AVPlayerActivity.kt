@@ -2,25 +2,27 @@ package com.okellogerald.av_player
 
 import android.app.Activity
 import android.os.Bundle
-import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import androidx.media3.common.MediaItem
-import androidx.media3.common.MimeTypes
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
-import java.lang.Exception
 
-const val SAMPLEVIDEOURL =
-    "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
 
-class Media(
-    val url: String,
-    val mimeType: MimeTypes,
-)
-
-class AVPlayerActivity : AppCompatActivity() {
+class AVPlayerActivity() : Activity() {
     private lateinit var player: ExoPlayer
     private lateinit var playerView: PlayerView
+
+    companion object Factory {
+        fun createMediaFrom(args: Any): Media? {
+            return try {
+                val data = args as Map<*, *>
+                val url = data["url"] as String
+                val fileType = data["fileType"] as String
+                Media.network(url, fileType)
+            } catch (_: Exception) {
+                null
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,9 +33,10 @@ class AVPlayerActivity : AppCompatActivity() {
 
         playerView.player = player
 
+        val media = intent.getSerializableExtra("media") as Media
         val mediaItem = MediaItem.Builder()
-            .setUri(SAMPLEVIDEOURL)
-            .setMimeType(MimeTypes.APPLICATION_MP4)
+            .setUri(media.url)
+            .setMimeType(media.getMimeType())
             .build()
         player.setMediaItem(mediaItem)
         player.prepare()

@@ -1,10 +1,10 @@
 # av_player
 
-A new Flutter plugin project.
+A Flutter plugin to handle all platform specific implementations for playing audio and video media files. It is intended to be a 'plugin-n-play' solution. E.g just call a function `playVideo` and that's what it should do.
 
-## Set-up
+## Android Set-up
 
-### Dependencies
+> Add the following dependencies
 ```gradle
 dependencies {
     ...
@@ -12,22 +12,12 @@ dependencies {
     implementation "androidx.media3:media3-exoplayer:$media3_version"
     implementation "androidx.media3:media3-ui:$media3_version"
     implementation "androidx.media3:media3-exoplayer-hls:$media3_version"
+
+    implementation "androidx.multidex:multidex:2.0.1"
 }
 ```
 
-```gradle
-    ext {
-        kotlin_version = '1.9.0'
-    }
-```
-
-```gradle
-plugins {
-    ...
-    id 'org.jetbrains.kotlin.android' version '1.9.0' apply false
-}
-```
-
+> Set up sdk versions as seen below
 ```gradle
  android {
     ...
@@ -43,6 +33,7 @@ plugins {
  }
 ```
 
+> In `AndroidManifest.xml`
 ```xml
 # in the application tag
 <application>
