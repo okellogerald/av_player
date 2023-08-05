@@ -7,7 +7,7 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
 
 
-class AVPlayerActivity() : Activity() {
+class AudioPlayerActivity() : Activity() {
     private lateinit var player: ExoPlayer
     private lateinit var playerView: PlayerView
 
@@ -41,5 +41,24 @@ class AVPlayerActivity() : Activity() {
         player.setMediaItem(mediaItem)
         player.prepare()
         player.play()
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        player.pause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        player.play()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        player.pause()
+        player.release()
     }
 }

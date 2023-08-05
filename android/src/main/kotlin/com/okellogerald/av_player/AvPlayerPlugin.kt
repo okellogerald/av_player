@@ -31,6 +31,10 @@ class AvPlayerPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                 playVideo(call, result)
             }
 
+            "play_audio" -> {
+                playAudio(call, result)
+            }
+
             else -> {
                 result.notImplemented()
             }
@@ -38,14 +42,23 @@ class AvPlayerPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     }
 
     private fun playVideo(call: MethodCall, result: Result) {
-        val intent = Intent(context, AVPlayerActivity::class.java)
-        val media = AVPlayerActivity.createMediaFrom(args = call.arguments)
-        if (media == null) {
-            result.error("100", "Invalid Media Args", null)
-            return
-        }
+        val intent = Intent(context, VideoPlayerActivity::class.java)
+        val media = VideoPlayerActivity.createMediaFrom(args = call.arguments)
+            ?: return invalidMediaError(result)
         intent.putExtra("media", media)
         startActivity(context, intent, null)
+    }
+
+    private fun playAudio(call: MethodCall, result: Result) {
+        val intent = Intent(context, AudioPlayerActivity::class.java)
+        val media = AudioPlayerActivity.createMediaFrom(args = call.arguments)
+            ?: return invalidMediaError(result)
+        intent.putExtra("media", media)
+        startActivity(context, intent, null)
+    }
+
+    private fun invalidMediaError(result: Result) {
+        result.error("100", "Invalid Media Args", null)
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {

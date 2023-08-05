@@ -13,4 +13,8 @@ class AvPlayer {
   void playVideo(Media media) {
     _channel.invokeMethod("play_video", media.toMap());
   }
+
+  void playAudio(Media media) {
+    _channel.invokeMethod("play_audio", media.toMap());
+  }
 }

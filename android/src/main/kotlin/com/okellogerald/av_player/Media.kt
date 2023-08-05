@@ -14,11 +14,27 @@ data class Media constructor(
     fun getMimeType(): String? {
         return when (fileType) {
             "mp4" -> {
-                MimeTypes.APPLICATION_MP4
+                MimeTypes.VIDEO_MP4
+            }
+
+            "mkv" -> {
+                MimeTypes.VIDEO_H263
+            }
+
+            "webm" -> {
+                MimeTypes.VIDEO_WEBM
+            }
+
+            "wav" -> {
+                MimeTypes.AUDIO_WAV
             }
 
             "mp3" -> {
-                MimeTypes.AUDIO_MPEG
+                MimeTypes.AUDIO_AC4
+            }
+
+            "m4a" -> {
+                MimeTypes.AUDIO_AAC
             }
 
             else -> null
